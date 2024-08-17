@@ -10,11 +10,11 @@ insurance_UserDB = process.env.INSURANCE_DB
 try {
     insurance_dbCon = mongoose.createConnection(insurance_UserDB, {
         // keepAlive: 1,
-        useNewUrlParser: true,
+        // useNewUrlParser: true,
         connectTimeoutMS: 4000,
         serverSelectionTimeoutMS: 5000,
         socketTimeoutMS: 60000,
-        useUnifiedTopology: true,
+        // useUnifiedTopology: true,
         // useFindAndModify: false
     });
 } catch (error) {

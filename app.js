@@ -48,13 +48,13 @@ let db_url = process.env.INSURANCE_DB;
 
 
 let opts = {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
     // keepAlive: true,
     // bufferMaxEntries: 0,
     connectTimeoutMS: 45000,
     socketTimeoutMS: 60000,
     family: 4,
-    useUnifiedTopology: true,
+    // useUnifiedTopology: true,
   };
   mongoose
     .connect(db_url, opts)
