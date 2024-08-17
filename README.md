@@ -2,7 +2,11 @@
 
 npm start
 
-## Run command using bat file
+## Run command using .sh file
+
+spy.sh
+
+## Run command using .bat file
 
 spy.bat
 
