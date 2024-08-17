@@ -41,3 +41,30 @@ I have implemented a system that continuously monitors CPU usage and automatical
 - Continuous Monitoring: The cron job logs CPU usage every 5 seconds, providing real-time visibility into the server's CPU load.
 
 This setup ensures continuous monitoring and recovery, keeping the server running smoothly even under high CPU load conditions, and allows for easy testing of the restart functionality.
+
+
+# End point with example
+
+POST Task-1 – upload
+Endpoint - http://localhost:3004/api/upload
+Body - form-data
+“filePath” - C:\Users\ankan\Downloads\data-sheet - Node js Assesment.csv
+==========================================================================================================================================================================
+POST Task-1 - get_policy_details
+Endpoint - http://localhost:3004/api/get-policy-details
+Body - raw (json)
+{
+    "name": "Lura Lucca"
+}
+==========================================================================================================================================================================
+POST  Task-1 - get-aggregated-policy-by-user
+Endpoint - http://localhost:3004/api/get-aggregated-policy-by-user
+==========================================================================================================================================================================
+POST Task-2 - post-message
+Endpoint - http://localhost:3004/api/post-message
+Body - raw (json)
+{
+    "message": "This is a sample message",
+    "date": "2024-08-18",
+    "time": "14:30:00"
+}
