@@ -8,7 +8,7 @@ spy.sh
 
 ## Run command using .bat file
 
-spy.bat or spy.sh
+spy.bat
 
 ### CPU Monitoring and Auto-Restart System
 
