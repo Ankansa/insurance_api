@@ -25,10 +25,72 @@ apiController.getPolicyDetails = async (req, res) => {
     const { name } = req.body;
 
     // Find the user by first name
-    const user = await query_ctrl.findOne(User.UserModel, { firstName: name });
+    let pipeline = [{$match:{ "firstName": name }},
+      {
+        $lookup: {
+          from: 'Policy', // Collection name of policies
+          localField: '_id',
+          foreignField: 'userId',
+          as: 'policies',
+        },
+      },
+      {
+        $unwind: {
+          path: '$policies',
+          preserveNullAndEmptyArrays: true, // To include users with no policies
+        },
+      },
+      {
+        $lookup: {
+          from: 'Carrier', // Collection name of companies
+          localField: 'policies.companyId',
+          foreignField: '_id',
+          as: 'companyDetails',
+        },
+      },
+      {
+        $lookup: {
+          from: 'LOB', // Collection name of categories
+          localField: 'policies.categotyCollectionId',
+          foreignField: '_id',
+          as: 'categoryDetails',
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          firstName: { $first: '$firstName' },
+          lastName: { $first: '$lastName' },
+          totalPolicies: { $sum: 1 },
+          policies: {
+            $push: {
+              policy_number: '$policies.policyNumber',
+              policy_start_date: '$policies.policyStartDate',
+              policy_end_date: '$policies.policyEndDate',
+              company_details: { $arrayElemAt: ['$companyDetails', 0] }, // Since lookup returns an array
+              category_details: { $arrayElemAt: ['$categoryDetails', 0] }, // Since lookup returns an array
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          user_id: '$_id',
+          first_name: '$firstName',
+          last_name: '$lastName',
+          total_policies: '$totalPolicies',
+          policies: '$policies',
+        },
+      },
+    ];
+
+    console.log("Please wait we are collecting the information.....");
+    const userData = await query_ctrl.aggregateQuery(User.UserModel, pipeline);
+    // const user = await query_ctrl.findOne(User.UserModel, { firstName: name });
 
     // Check if the user exists
-    if (!user) {
+    if (!userData) {
       return res.status(404).json({
         status: false,
         data: null,
@@ -37,16 +99,15 @@ apiController.getPolicyDetails = async (req, res) => {
     }
 
     // Convert the user ID to a string
-    const user_id = user._id.toString();
+    // const user_id = user._id.toString();
 
     // Find the policy details by user ID
-    console.log("Please wait we are collecting the information.....");
-    const policy_details = await query_ctrl.findByQuery(Policy.PolicyModel, { userId: user_id });
+    // const policy_details = await query_ctrl.findByQuery(Policy.PolicyModel, { userId: user_id });
 
     // Respond with the policy details
     return res.status(200).json({
       status: true,
-      data: policy_details,
+      data: userData,
       message: "Successfully retrieved policy details",
     });
 
