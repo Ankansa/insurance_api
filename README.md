@@ -46,7 +46,7 @@ This setup ensures continuous monitoring and recovery, keeping the server runnin
 # End point with example
 
 ## POST Task-1 - upload-using-worker-thread
-- Endpoint - http://localhost:3004/api/get-aggregated-policy-by-user
+- Endpoint - http://localhost:3004/api/upload-using-worker-thread
 - Body - form-data
 - “filePath” - C:\Users\ankan\Downloads\data-sheet - Node js Assesment.csv
 
