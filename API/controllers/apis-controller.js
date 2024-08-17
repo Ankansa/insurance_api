@@ -67,24 +67,24 @@ apiController.processFile = (req, res) => {
                 "gender": row['gender'],
                 "userType": row['userType'],
               };
-              console.log("** User collection started saving **");
+              // console.log("** User collection started saving **");
               let user_insert_responce = await query_ctrl.createOne(User.UserModel, user_insert_data);
-              console.log("** User collection finished saving *********************** **", user_insert_responce._id);
+              // console.log("** User collection finished saving *********************** **", user_insert_responce._id);
 
               const account_insert_data = { "accountName": row['account_name'] };
-              console.log("** Account collection started saving **");
+              // console.log("** Account collection started saving **");
               await query_ctrl.createOne(Account.AccountModel, account_insert_data);
-              console.log("** Account collection finished saving **");
+              // console.log("** Account collection finished saving **");
 
               const lob = { "categoryName": row['category_name'] };
-              console.log("** LOB collection started saving **");
+              // console.log("** LOB collection started saving **");
               let lob_insert_responce = await query_ctrl.createOne(LOB.LOBModel, lob);
-              console.log("** LOB collection finished saving **");
+              // console.log("** LOB collection finished saving **");
 
               const carrier_insert_data = { "companyName": row['company_name'] };
-              console.log("** Carrier collection started saving **");
+              // console.log("** Carrier collection started saving **");
               let carrier_insert_responce = await query_ctrl.createOne(Carrier.CarrierModel, carrier_insert_data);
-              console.log("** Carrier collection finished saving **@@@@@@@@@@@@@@@@", carrier_insert_responce._id);
+              // console.log("** Carrier collection finished saving **@@@@@@@@@@@@@@@@", carrier_insert_responce._id);
 
               const policy = {
                 "policyNumber": row['policy_number'],
@@ -94,12 +94,12 @@ apiController.processFile = (req, res) => {
                 "companyId": carrier_insert_responce._id,
                 "userId": user_insert_responce._id,
               };
-              console.log("** Policy collection started saving **");
+              // console.log("** Policy collection started saving **");
               await query_ctrl.createOne(Policy.PolicyModel, policy);
-              console.log("** Policy collection finished saving **");
+              // console.log("** Policy collection finished saving **");
             }
 
-            console.log("** All operations completed successfully **");
+            // console.log("** All operations completed successfully **");
 
             // Delete the uploaded file after processing
             fs.unlinkSync(filePath);
