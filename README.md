@@ -20,7 +20,7 @@ I have implemented a system that continuously monitors CPU usage and automatical
    - A cron job runs every 5 seconds to check the CPU usage.
    - The CPU usage percentage is logged to the `cpu_usage_log.txt` during each check.
    - The CPU usage percentage is logged to the console during each check.
-   - If the CPU usage exceeds 70%, the process is terminated using `process.exit(1)`.
+   - If the CPU usage exceeds 70%, the process is terminated.
 
 2. Environment Variables:
    - In the `.env` file, if `CPU_USAGE_CHECK="true"`, the CPU usage monitoring is activated.
